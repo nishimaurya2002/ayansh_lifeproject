@@ -129,13 +129,13 @@
                                while($service=mysqli_fetch_assoc($servicedata)){
                              
              ?>
-                <div data-aos="fade-up" data-aos-duration="1600" class="col-lg-4 col-sm-6 services-div">
+                <div data-aos="fade-up" data-aos-duration="1600" class="col-lg-4 col-sm-6 d-flex justify-content-center">
                     <div class="single-services">
                         <div class="single-services-img"><img src="admin/services/<?=$service['image']?>" alt=""></div>
                         <h3><?=$service['name']?></h3>
                         <p><?=$service['description']?></p>
 
-                        <a href="department-details-right-sidebar.html" class="read-more">
+                        <a href="service-details.php?id=<?= $service['id'];?>" class="read-more">
 								Read More
 							</a>
                     </div>
@@ -199,29 +199,36 @@
             </div>
 
             <div class="row">
+            <?php
+                          $sql="select * from team";
+                          $teamdata=mysqli_query($con,$sql);
+                          if(mysqli_num_rows($teamdata) > 0 ){
+                               while($team=mysqli_fetch_assoc($teamdata)){
+                             
+             ?>
                 <div data-aos="fade-up" data-aos-duration="1400" class="col-lg-4 col-sm-6">
                     <div class="single-doctor">
                         <div class="single-doctor-img">
-                          <img src="assets/img/img2.jpg" alt="Image">
+                          <img src="admin/team/<?=$team['image']?>" alt="Image">
                        </div>
                         <div class="doctor-content">
-                            <h3>Anthony</h3>
-                            <span>Surgeon, Сardiologist</span>
+                            <h3><?=$team['name']?></h3>
+                            <span><?=$team['title']?></span>
                         </div>
 
                         <ul>
                             <li>
-                                <a href="#">
+                                <a href="<?=$team['linkdin']?>">
 										<i class="bx bxl-facebook"></i>
 									</a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="<?=$team['twitter']?>">
 										<i class="bx bxl-twitter"></i>
 									</a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="<?=$team['instagram']?>">
 										<i class="bx bxl-instagram"></i>
 									</a>
                             </li>
@@ -229,7 +236,7 @@
                     </div>
                 </div>
 
-                <div data-aos="fade-up" data-aos-duration="1600" class="col-lg-4 col-sm-6">
+                <!-- <div data-aos="fade-up" data-aos-duration="1600" class="col-lg-4 col-sm-6">
                     <div class="single-doctor">
                         <div class="single-doctor-img">
                           <img src="assets/img/img1.jpg" alt="Image">
@@ -288,7 +295,11 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
+                <?php
+                               }
+                            }
+              ?>
             </div>
         </div>
     </section>
@@ -309,18 +320,21 @@
                         <div class="col-lg-6">
                         <div class="form-section">
                                 <h2 class="text-center mb-4">Enquiry form</h2>
-                                    <form>
+                                    <form action="postenquiry.php" method="post">
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+                                            <small class="text-danger"><?=isset($_GET['nameerr']) ? $_GET['nameerr']:''?></small>
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Email address</label>
-                                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+                                            <small class="text-danger"><?=isset($_GET['emailerr']) ? $_GET['emailerr']:''?></small>
                                         </div>
                                         <div class="form-group">
                                             <label for="message">Message</label>
-                                            <textarea class="form-control" id="message" rows="4" placeholder="Enter your message" required></textarea>
+                                            <textarea class="form-control" id="message" rows="4" name="message" placeholder="Enter your message"></textarea>
+                                            <small class="text-danger"><?=isset($_GET['msgerr']) ? $_GET['msgerr']:''?></small>
                                         </div>
                                         <button type="submit" class="btn default-btn  my-4">Submit</button>
                                     </form>
@@ -342,16 +356,23 @@
 				</div>
 
 				<div class="testimonial-wrap owl-carousel owl-theme">
+                <?php
+                          $sql="select * from testimonial";
+                          $testidata=mysqli_query($con,$sql);
+                          if(mysqli_num_rows($testidata) > 0 ){
+                               while($testimonial=mysqli_fetch_assoc($testidata)){
+                             
+             ?>
 					<div data-aos="fade-up" data-aos-duration="1400" class="single-testimonial">
-						<img src="assets/img/test1.png" alt="img">
+						<img src="admin/testimonial/<?=$testimonial['image']?>" alt="img">
 
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem Ipsum is simply dummy text of the printing and Quis suspendisse typesetting ipsum dolor sit amet, consectetur magna aliqua. Lorem Ipsum is simply ipsum dolor</p>
+						<p><?=$testimonial['description']?></p>
 
-						<h3>William Robart</h3>
-						<span>Consulting Doctor</span>
+						<h3><?=$testimonial['name']?></h3>
+						<span><?=$testimonial['title']?></span>
 					</div>
 					
-					<div data-aos="fade-up" data-aos-duration="1600" class="single-testimonial">
+					<!-- <div data-aos="fade-up" data-aos-duration="1600" class="single-testimonial">
 						<img src="assets/img/test1.png" alt="img">
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem Ipsum is simply dummy text of the printing and Quis suspendisse typesetting ipsum dolor sit amet, consectetur magna aliqua. Lorem Ipsum is simply ipsum dolor</p>
 
@@ -365,7 +386,12 @@
 
 						<h3>Ravert Smith</h3>
 						<span>Dental</span>
-					</div>
+					</div> -->   
+                    <?php
+                               }
+                            }
+              ?>
+
 				</div>
 			</div>
 		</section>

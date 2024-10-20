@@ -119,9 +119,27 @@
 							</a>
 						</li>
 						<li class="nav-item">
+							<a href="enquiry.php">
+								<i class="la la-th"></i>
+								<p>Enquiry</p>
+							</a>
+						</li>
+						<li class="nav-item">
 							<a href="services.php">
 								<i class="la la-th"></i>
 								<p>Services</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="team.php">
+								<i class="la la-th"></i>
+								<p>Team</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="testimonial.php">
+								<i class="la la-th"></i>
+								<p>Testimonial</p>
 							</a>
 						</li>
 					</ul>

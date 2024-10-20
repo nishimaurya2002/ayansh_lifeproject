@@ -1,10 +1,13 @@
 <?php
 ob_start();
 include('layout/header.php');
-$nameerr  = $imageerr = $descriperr = '';
+$nameerr = $imageerr = $descriperr = $titleerr='';
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(empty($_POST['name'])){
-        $nameerr = "*Product field is required";
+        $nameerr = "*Name field is required";
+    }
+    elseif(empty($_POST['title'])){
+       $titleerr="*Title field is required";
     }
     elseif(empty($_FILES['image']['name'])){
         $imageerr = "*Image field is required";
@@ -13,17 +16,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $descriperr = "*Description field is required";
     }else{
         $name = $_POST['name'];
+        $title=$_POST['title'];
         $descrip = $_POST['description'];
         $imgname = $_FILES['image']['name'];
         $temp_name = $_FILES['image']['tmp_name'];
-        move_uploaded_file($temp_name, 'services/' . $imgname);
-        // $imgname='services/'.$imgname;
+        move_uploaded_file($temp_name, 'testimonial/' . $imgname);
+        // $imgname='testimonial/'.$imgname;
 
-        $query = "INSERT INTO services(name, image, description) VALUES('$name', '$imgname', '$descrip')";
+        $query = "INSERT INTO testimonial(name,title,image,description) VALUES('$name','$title', '$imgname', '$descrip')";
         if(mysqli_query($con, $query)){
             echo "<script>
-                      alert('Services data added successfully');
-                      window.location.href='services.php';
+                      alert('testimonial data added successfully');
+                      window.location.href='testimonial.php';
                   </script>";
         } else {
             echo "<script>alert('Failed to add data');</script>";
@@ -35,13 +39,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 <div class="main-panel">
     <div class="content">
         <div class="container-fluid">
-            <h4 class="page-title">Service Forms</h4>
+            <h4 class="page-title">Testimonials Forms</h4>
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Service Form</div>
+                            <div class="card-title">Testimonials Form</div>
                         </div>
                         <div class="card-body">
                             <form action="<?=$_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data">
@@ -49,6 +53,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                     <label for="name">Name</label>
                                     <input type="text" class="form-control" id="name" name="name">
                                     <small class="text-danger"><?=$nameerr?></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Title</label>
+                                    <input type="text" class="form-control" id="name" name="title">
+                                    <small class="text-danger"><?=$titleerr?></small>
                                 </div>
                                 <div class="form-group">
                                     <label for="file">Image</label>

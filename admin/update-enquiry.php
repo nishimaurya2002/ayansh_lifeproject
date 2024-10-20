@@ -7,11 +7,11 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
         $name=$_POST['name'];
         $email=$_POST['email'];
         $msg=$_POST['message'];
-        $sql="Update contact SET name='$name', email='$email', message='$msg'where id=$id";
+        $sql="Update enquiry SET name='$name', email='$email', message='$msg'where id=$id";
         if(mysqli_query($con , $sql)){
             echo "<script>
                       alert('Data update successfully');
-                       window.location.href='contact.php';
+                       window.location.href='enquiry.php';
                  </script>";
         }
 
@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
 }
 if(isset($_GET['id'])){
     $id=$_GET['id'];
-    $sql="select * from contact where id=$id";
+    $sql="select * from enquiry where id=$id";
     $data=mysqli_query($con,$sql);
     if(mysqli_num_rows($data) > 0 ){
         $single=mysqli_fetch_assoc($data);
@@ -28,13 +28,13 @@ if(isset($_GET['id'])){
 			<div class="main-panel">
 				<div class="content">
 					<div class="container-fluid">
-						<h4 class="page-title">contact Forms</h4>
+						<h4 class="page-title">Enquiry Forms</h4>
 						<div class="row">
 							<div class="col-md-2"></div>
 							<div class="col-md-8">
 								<div class="card">
 									<div class="card-header">
-										<div class="card-title">contact Form</div>
+										<div class="card-title">Enquiry Form</div>
 									</div>
 									<div class="card-body">
 										<form action="<?=$_SERVER['PHP_SELF']?>" method="post" enctype="multiple/form-data">
@@ -52,7 +52,7 @@ if(isset($_GET['id'])){
                                                 <textarea class="form-control" id="message" rows="4"  name="message" placeholder="Enter your message"><?=$single['message']?>"</textarea>
                                             </div>									
 											<div class="card-action">
-												<button type="submit" name="edit" class="btn btn-success" value="update user">Update contact</button>												
+												<button type="submit" name="edit" class="btn btn-success" value="update user">Update Enquiry</button>												
 										    </div>
 										</form>
 										</div>
@@ -64,7 +64,7 @@ if(isset($_GET['id'])){
 					</div>
 					<?php
 }else{
-   header('location:contact.php');
+   header('location:Enquiry.php');
 }
 include 'layout/footer.php';
 
